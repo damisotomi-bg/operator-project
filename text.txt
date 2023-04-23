@@ -1,0 +1,2 @@
+To create a migration file for users table
+-db-migrate create users db-migrate --sql-file
