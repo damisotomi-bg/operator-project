@@ -42,18 +42,18 @@ const checkDuplicateEmail = (req) => {
 const validateUserSignupData = (req) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const { email, password, isOperator } = req.body
+            const { email, password, isoperator } = req.body
 
-            const requiredKeys = ["email", "password", "isOperator"]
+            const requiredKeys = ["email", "password", "isoperator"]
 
             await requiredKeysValidator(req, requiredKeys)
 
             if (!email || !password) {
-                reject("Email and password must be provided. isOperator is optional but will be taken as false if not provided")
+                reject("Email and password must be provided. isoperator is optional but will be taken as false if not provided")
             }
 
             else if (!(email.trim() && password.trim())) {
-                reject("Email and password must be provided. isOperator is optional but will be taken as false if not provided")
+                reject("Email and password must be provided. isoperator is optional but will be taken as false if not provided")
             }
 
             else if (await checkDuplicateEmail(req)) {
@@ -63,7 +63,7 @@ const validateUserSignupData = (req) => {
                 reject('Invalid Email Address')
             }
             else {
-                req.validatedData = { email: email, password: password, isOperator: isOperator === undefined ? false : isOperator }
+                req.validatedData = { email: email, password: password, isoperator: isoperator === undefined ? false : isoperator }
             }
 
             resolve(true)

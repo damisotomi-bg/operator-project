@@ -11,7 +11,7 @@ const insertNewUser = (req) => {
         try {
             const conn = await pool.connect()
             const sql = `INSERT INTO users(
-                email, password, isOperator)
+                email, password, isoperator)
                 VALUES ($1, $2, $3)
                 RETURNING *;`;
 
@@ -19,7 +19,7 @@ const insertNewUser = (req) => {
                 req.validatedData.password + process.env.BCRYPT_PASSWORD,
                 parseInt(process.env.SALT_ROUNDS)
             );
-            const values = [req.validatedData.email, hash, req.validatedData.isOperator];
+            const values = [req.validatedData.email, hash, req.validatedData.isoperator];
             const result = await conn.query(sql, values)
             conn.release()
 

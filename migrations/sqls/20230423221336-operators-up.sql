@@ -1,14 +1,25 @@
-/* Replace with your SQL commands */
+-- CREATE FUNCTION concat_names(firstname VARCHAR(255), lastname VARCHAR(255))
+--   RETURNS VARCHAR(255)
+--   IMMUTABLE
+-- AS $$
+--   SELECT firstname || ' ' || lastname;
+-- $$ LANGUAGE SQL;
 
+-- CREATE FUNCTION generate_operator_id(id INTEGER)
+--   RETURNS VARCHAR(255)
+--   IMMUTABLE
+-- AS $$
+--   SELECT CONCAT('0-', id);
+-- $$ LANGUAGE SQL;
 
-CREATE TYPE gender AS ENUM ('male', 'female');
+-- CREATE TYPE gender AS ENUM ('male', 'female');
 
 CREATE TABLE IF NOT EXISTS Operators (
   id SERIAL PRIMARY KEY,
-  operator_id VARCHAR(255) GENERATED ALWAYS AS (CONCAT('xyz-', id)) STORED UNIQUE,
+  operator_id VARCHAR(255) GENERATED ALWAYS AS (generate_operator_id(id)) STORED UNIQUE,
   firstname VARCHAR(255),
   lastname VARCHAR(255),
-  fullname VARCHAR(255) GENERATED ALWAYS AS  (CONCAT(firstname," ",lastname)) STORED,
+  fullname VARCHAR(255) GENERATED ALWAYS AS (concat_names(firstname, lastname)) STORED,
   phonenumber BIGINT,
   nationality VARCHAR(255),
   state VARCHAR(255),
@@ -21,4 +32,3 @@ CREATE TABLE IF NOT EXISTS Operators (
   created_at TIMESTAMP DEFAULT NOW(),
   updated_at TIMESTAMP DEFAULT NOW()
 );
-
