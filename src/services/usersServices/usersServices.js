@@ -1,18 +1,7 @@
 const usersDao = require('../../dao/usersDao/usersDao')
 const pool = require('../../db')
 const validator = require('validator');
-
-const requiredKeysValidator = (req, requiredKeysArray) => {
-    return new Promise((resolve, reject) => {
-        for (const key in req.body) {
-            if (!requiredKeysArray.includes(key)) {
-                reject(`'${key}' not expected. Only ${requiredKeysArray} are allowed`);
-            }
-        }
-        resolve(true)
-    })
-
-}
+const requiredKeysValidator = require('../../utils/requiredKeysValidator')
 
 const checkDuplicateEmail = (req) => {
     return new Promise(async (resolve, reject) => {
@@ -36,8 +25,6 @@ const checkDuplicateEmail = (req) => {
         }
     })
 }
-
-
 
 const validateUserSignupData = (req) => {
     return new Promise(async (resolve, reject) => {
