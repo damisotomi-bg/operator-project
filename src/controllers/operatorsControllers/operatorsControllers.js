@@ -3,7 +3,7 @@ const operatorsDao = require('../../dao/operatorsDao/operatorsDao')
 
 
 
-const completeRegistration = async (req) => {
+const completeRegistration = async (req, res) => {
     try {
         await operatorsServices.validateOperatorsData(req)
         const result = await operatorsDao.insertOperatorsData(req)

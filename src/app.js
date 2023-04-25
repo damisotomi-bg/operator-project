@@ -3,6 +3,10 @@ const cors = require('cors')
 const dotenv = require('dotenv')
 const usersRouter = require('./routes/usersRoutes/usersRoutes')
 const operatorsRouter = require('./routes/operatorsRoutes/operatorsRoutes')
+const statesRouter = require('./routes/statesRoutes/statesRoutes')
+const loadStatesTable = require('./scripts/loadStatesTable')
+const loadLgasTable = require('./scripts/loadLgasTable')
+
 
 dotenv.config()
 const port = process.env.PORT || process.env.port
@@ -18,6 +22,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors({ origin: /http:\/\/localhost/ }))
 app.options('*', cors())
 
+app.use(loadStatesTable)
+app.use(loadLgasTable)
 
 app.get('/', (req, res) => {
     res.send("Ok")
@@ -25,6 +31,7 @@ app.get('/', (req, res) => {
 
 app.use('/auth', usersRouter)
 app.use('/operators', operatorsRouter)
+app.use('/states', statesRouter)
 
 //for when the client navigates to a route not listed in any of this routers
 app.use((req, res) => {

@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Operators (
   nin BIGINT,
   picture BYTEA,
   isVerified BOOLEAN DEFAULT true,
-  user_id INTEGER UNIQUE NOT NULL REFERENCES users(user_id),
+  user_id INTEGER UNIQUE NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
   created_at TIMESTAMP DEFAULT NOW(),
   updated_at TIMESTAMP DEFAULT NOW()
 );

@@ -6,7 +6,6 @@ const getUserFromToken = (req, res, next) => {
         const decodedToken = jwt.decode(jwtToken)
         const user = decodedToken.user
         req.user = user
-        console.log(req.user);
         next()
 
     } catch (error) {
