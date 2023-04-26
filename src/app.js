@@ -22,7 +22,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors({ origin: /http:\/\/localhost/ }))
 app.options('*', cors())
 
-// app.use(loadStatesTable)
+//use this if you want the loadtables function to be used as a middleware instead of a script
+// app.use(loadStatesTable) 
 // app.use(loadLgasTable)
 
 app.get('/', (req, res) => {

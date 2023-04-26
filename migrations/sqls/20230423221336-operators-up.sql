@@ -1,18 +1,18 @@
-CREATE FUNCTION concat_names(firstname VARCHAR(255), lastname VARCHAR(255))
-  RETURNS VARCHAR(255)
-  IMMUTABLE
-AS $$
-  SELECT firstname || ' ' || lastname;
-$$ LANGUAGE SQL;
+-- CREATE FUNCTION concat_names(firstname VARCHAR(255), lastname VARCHAR(255))
+--   RETURNS VARCHAR(255)
+--   IMMUTABLE
+-- AS $$
+--   SELECT firstname || ' ' || lastname;
+-- $$ LANGUAGE SQL;
 
-CREATE FUNCTION generate_operator_id(id INTEGER)
-  RETURNS VARCHAR(255)
-  IMMUTABLE
-AS $$
-  SELECT CONCAT('0-', id);
-$$ LANGUAGE SQL;
+-- CREATE FUNCTION generate_operator_id(id INTEGER)
+--   RETURNS VARCHAR(255)
+--   IMMUTABLE
+-- AS $$
+--   SELECT CONCAT('0-', id);
+-- $$ LANGUAGE SQL;
 
-CREATE TYPE gender AS ENUM ('male', 'female');
+-- CREATE TYPE gender AS ENUM ('male', 'female');
 
 CREATE TABLE IF NOT EXISTS Operators (
   id SERIAL PRIMARY KEY,
@@ -20,16 +20,16 @@ CREATE TABLE IF NOT EXISTS Operators (
   firstname VARCHAR(255) Not Null,
   lastname VARCHAR(255) NOT NULL,
   fullname VARCHAR(255) GENERATED ALWAYS AS (concat_names(firstname, lastname)) STORED,
-  phonenumber BIGINT,
-  nationality VARCHAR(255),
-  state VARCHAR(255),
-  lga VARCHAR(255),
-  sex gender,
-  dateofbirth DATE,
-  nin BIGINT,
-  picture BYTEA,
+  phonenumber BIGINT NOT NULL,
+  nationality VARCHAR(255) NOT NULL,
+  state VARCHAR(255) NOT NULL,
+  lga VARCHAR(255) NOT NULL,
+  sex gender NOT NULL,
+  dateofbirth DATE not null,
+  nin BIGINT NOT NULL,
   isverified BOOLEAN DEFAULT true,
   user_id INTEGER UNIQUE NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
   created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
+  updated_at TIMESTAMP DEFAULT NOW(),
+  picture BYTEA NOT NULL
 );

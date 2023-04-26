@@ -10,7 +10,7 @@ const completeRegistration = async (req, res) => {
         res.status(201).json(result)
     } catch (error) {
         console.log("Error completing operator registration:", error);
-        res.status(400).send({ error: error.message });;
+        res.status(400).send({ error });;
     }
 }
 
