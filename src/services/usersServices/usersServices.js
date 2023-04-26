@@ -3,91 +3,84 @@ const pool = require('../../db')
 const validator = require('validator');
 const requiredKeysValidator = require('../../utils/requiredKeysValidator')
 
-const checkDuplicateEmail = (req) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const email = req.body.email
+const checkDuplicateEmail = async (req) => {
+    try {
+        const email = req.body.email
 
-            const conn = await pool.connect()
-            const sql = 'SELECT email from users;'
-            const result = await conn.query(sql)
-            const rows = result.rows
-            conn.release()
+        const conn = await pool.connect()
+        const sql = 'SELECT email from users;'
+        const result = await conn.query(sql)
+        const rows = result.rows
+        conn.release()
 
-            const check = rows.find((user) => {
-                return user.email.trim() === email.trim()
-            })
+        const check = rows.find((user) => {
+            return user.email.trim() === email.trim()
+        })
 
-            resolve(check)
+        return (check)
 
-        } catch (error) {
-            reject(error)
-        }
-    })
+    } catch (error) {
+        throw (error)
+    }
 }
 
-const validateUserSignupData = (req) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const { email, password, isoperator } = req.body
+const validateUserSignupData = async (req) => {
+    try {
+        const { email, password, isoperator } = req.body
 
-            const requiredKeys = ["email", "password", "isoperator"]
+        const requiredKeys = ["email", "password", "isoperator"]
 
-            await requiredKeysValidator(req, requiredKeys)
+        await requiredKeysValidator(req, requiredKeys)
 
-            if (!email || !password) {
-                reject("Email and password must be provided. isoperator is optional but will be taken as false if not provided")
-            }
-
-            else if (!(email.trim() && password.trim())) {
-                reject("Email and password must be provided. isoperator is optional but will be taken as false if not provided")
-            }
-
-            else if (await checkDuplicateEmail(req)) {
-                reject("Email already exists")
-            }
-            else if (!validator.isEmail(email)) {
-                reject('Invalid Email Address')
-            }
-            else {
-                req.validatedData = { email: email, password: password, isoperator: isoperator === undefined ? false : isoperator }
-            }
-
-            resolve(true)
-
-        } catch (error) {
-            reject(error)
+        if (!email || !password) {
+            throw new Error("Email and password must be provided. isoperator is optional but will be taken as false if not provided")
         }
 
-    })
+        else if (!(email.trim() && password.trim())) {
+            throw new Error("Email and password must be provided. isoperator is optional but will be taken as false if not provided")
+        }
+
+        else if (await checkDuplicateEmail(req)) {
+            throw new Error("Email already exists")
+        }
+        else if (!validator.isEmail(email)) {
+            throw new Error('Invalid Email Address')
+        }
+        else {
+            req.validatedData = { email: email, password: password, isoperator: isoperator === undefined ? false : isoperator }
+            return (true)
+        }
+
+
+    } catch (error) {
+        throw (error)
+    }
 }
 
 
 
 
-const validateRequestBody = (req) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const requiredKeys = ["email", "password"]
-            await requiredKeysValidator(req, requiredKeys)
+const validateRequestBody = async (req) => {
+    try {
+        const requiredKeys = ["email", "password"]
+        await requiredKeysValidator(req, requiredKeys)
 
-            const { email, password } = req.body
+        const { email, password } = req.body
 
-            if (!email || !password) {
-                reject("Email and password must be provided")
-            }
-
-            else if (!(email.trim() && password.trim())) {
-                reject("Email and password must be provided")
-            }
-            else {
-                resolve(true)
-            }
-
-        } catch (error) {
-            reject(error)
+        if (!email || !password) {
+            throw new Error("Email and password must be provided")
         }
-    })
+
+        else if (!(email.trim() && password.trim())) {
+            throw new Error("Email and password must be provided")
+        }
+        else {
+            return (true)
+        }
+
+    } catch (error) {
+        throw (error)
+    }
 }
 
 module.exports = { validateUserSignupData, validateRequestBody }

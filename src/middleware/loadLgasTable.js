@@ -1,6 +1,6 @@
 const pool = require('../db')
 
-const loadLgasTable = async () => {
+const loadLgasTable = async (req, res, next) => {
     let conn;
     try {
         conn = await pool.connect()
@@ -790,12 +790,13 @@ const loadLgasTable = async () => {
 
     } catch (error) {
         console.log(error);
+        res.status(401).json(`Error loading Lgas table- ${error}`)
     }
     finally {
         conn.release()
+        next()
     }
 
 }
 
-loadLgasTable()
 module.exports = loadLgasTable

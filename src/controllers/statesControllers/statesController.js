@@ -8,7 +8,7 @@ const getAllStates = async (req, res) => {
 
     } catch (error) {
         console.log("Error retieving states data:", error);
-        res.status(400).send({ error });
+        res.status(400).send({ error: error.message });
     }
 }
 
@@ -19,7 +19,7 @@ const getAStateLgas = async (req, res) => {
 
     } catch (error) {
         console.log("Error retieving states data:", error);
-        res.status(400).send({ error });
+        res.status(400).send({ error: error.message });
     }
 }
 

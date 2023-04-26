@@ -9,7 +9,7 @@ const createUser = async (req, res) => {
         res.status(201).json(result)
     } catch (error) {
         console.log("Error creating user data:", error);
-        res.status(400).send({ error });;
+        res.status(400).send({ error: error.message });;
     }
 }
 
@@ -23,7 +23,7 @@ const authenticateUser = async (req, res) => {
 
     } catch (error) {
         console.log("Error at login:", error);
-        res.status(400).send({ error });
+        res.status(400).send({ error: error.message });
     }
 }
 

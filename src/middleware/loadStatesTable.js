@@ -1,6 +1,6 @@
 const pool = require('../db')
 
-const loadStatesTable = async () => {
+const loadStatesTable = async (req, res, next) => {
     let conn;
     try {
         conn = await pool.connect()
@@ -52,12 +52,13 @@ const loadStatesTable = async () => {
         }
     } catch (error) {
         console.log(error);
+        res.status(401).json(`Error loading states table- ${error}`)
     }
     finally {
         conn.release()
+        next()
     }
 }
 
-loadStatesTable()
 
 module.exports = loadStatesTable

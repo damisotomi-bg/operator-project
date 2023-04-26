@@ -1,2 +1,11 @@
 To create a migration file for users table
 -db-migrate create users db-migrate --sql-file
+
+Solution to why the my server was freezing
+
+- Since my loadLgasTable and loadStatesTable are async functions as oppose to the other middlewares that are synchronous, i should use a 
+finally block in my try catch and the finally block should ensure the connection is always released and the next middleware is called.
+-which i have done and it works, second option will be to load the loadLgasTable and loadStatesTable before the server starts running
+-by adding it as a script in package.json file. So i will chain the commands. 
+
+I tried both methods. Both works. Sticking with the scipt method
