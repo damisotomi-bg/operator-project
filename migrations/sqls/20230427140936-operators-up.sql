@@ -1,3 +1,8 @@
+/* Replace with your SQL commands */
+
+-- /* Replace with your SQL commands */
+
+
 -- CREATE FUNCTION concat_names(firstname VARCHAR(255), lastname VARCHAR(255))
 --   RETURNS VARCHAR(255)
 --   IMMUTABLE
@@ -22,8 +27,8 @@ CREATE TABLE IF NOT EXISTS Operators (
   fullname VARCHAR(255) GENERATED ALWAYS AS (concat_names(firstname, lastname)) STORED,
   phonenumber BIGINT NOT NULL,
   nationality VARCHAR(255) NOT NULL,
-  state VARCHAR(255) NOT NULL,
-  lga VARCHAR(255) NOT NULL,
+  state_id integer references States (state_id) on DELETE set null, 
+  lga_id integer references Lgas(lga_id) on DELETE set null,
   sex gender NOT NULL,
   dateofbirth DATE not null,
   nin BIGINT NOT NULL,

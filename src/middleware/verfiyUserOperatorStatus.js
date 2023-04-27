@@ -10,7 +10,7 @@ const verifyUserOperatorStatus = (req, res, next) => {
             res.status(401).json('You dont have permission to access this route. Login with an operator account')
         }
     } catch (error) {
-        res.status(401).json(`Error verifying user operator status- ${err}`)
+        res.status(401).json(`Error verifying user operator status- ${error}`)
     }
 
 }

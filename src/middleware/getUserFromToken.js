@@ -9,7 +9,7 @@ const getUserFromToken = (req, res, next) => {
         next()
 
     } catch (error) {
-        res.status(401).json(`Error extracting user object from token- ${err}`)
+        res.status(401).json(`Error extracting user object from token- ${error}`)
     }
 
 }

@@ -10,8 +10,8 @@ const verifyToken = (req, res, next) => {
 
         next();
 
-    } catch (err) {
-        res.status(401).json(`Invalid token- ${err}`)
+    } catch (error) {
+        res.status(401).json(`Invalid token- ${error}`)
     }
 };
 

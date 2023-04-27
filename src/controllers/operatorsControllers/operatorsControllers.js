@@ -14,4 +14,16 @@ const completeRegistration = async (req, res) => {
     }
 }
 
-module.exports = { completeRegistration }
+
+const selectProductSeedType = async (req, res) => {
+    try {
+        await operatorsServices.validateSelections(req)
+        const result = await operatorsDao.insertOperatorsSelections(req)
+        res.status(201).json(result)
+    } catch (error) {
+        console.log("Error saving selections:", error);
+        res.status(400).send({ error });;
+    }
+}
+
+module.exports = { completeRegistration, selectProductSeedType }

@@ -1,3 +1,3 @@
 /* Replace with your SQL commands */
 
-DROP TABLE IF EXISTS Lgas
+DROP TABLE IF EXISTS Products
