@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node src/scripts/loadStatesTable.js && node src/scripts/loadLgasTable.js && npm run start",
+    "dev": "node src/scripts/loadStatesTable.js && node src/scripts/loadLgasTable.js && node src/scripts/loadProductsTable.js && node src/scripts/loadSeedTypesTable.js && npm run start",
     "start": "nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

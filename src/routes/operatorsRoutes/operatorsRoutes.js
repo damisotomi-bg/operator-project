@@ -9,9 +9,11 @@ const multer = require('multer')
 
 const upload = multer({ dest: 'uploads/' })
 
-operatorsRoutes.post('/completeRegistration', verifyToken, getUserFromToken,
+//to complete registration
+operatorsRoutes.post('/me', verifyToken, getUserFromToken,
     verifyUserOperatorStatus, upload.single('picture'), operatorsController.completeRegistration)
 
+//select product and seedtypes
 operatorsRoutes.post('/selectProductSeedType', verifyToken, getUserFromToken,
     verifyUserOperatorStatus, checkOperatorVerificationStatus, operatorsController.selectProductSeedType)
 

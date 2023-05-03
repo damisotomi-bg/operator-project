@@ -63,7 +63,7 @@ const checkCorrectProductAndSeedTypeId = (operator_id, product_id, seed_type_id)
         }
 
         catch (error) {
-            reject(err)
+            reject(error)
         }
         finally {
             conn.release()
@@ -91,8 +91,8 @@ const validateOperatorsData = (req) => {
                 reject("firstname, lastname, phonenumber, nationality, state_id, lga_id, sex, dateofbirth, nin and picture must be provided")
             }
 
-            else if (!(firstname.trim() && lastname.trim() && phonenumber.trim() && nationality.trim() && state_id.trim() && lga_id.trim()
-                && sex.trim() && dateofbirth.trim() && nin.trim())) {
+            else if (!(firstname.trim() && lastname.trim() && phonenumber.trim() && nationality.trim() && sex.trim() && dateofbirth.trim()
+                && nin.trim())) {
                 reject("firstname, lastname, phonenumber, nationality, state, lga, sex, dateofbirth, nin and picture must be provided")
             }
 
@@ -104,8 +104,8 @@ const validateOperatorsData = (req) => {
             }
             else {
                 if (!validator.isNumeric(phonenumber)) reject('Invalid Phone number. Only Numbers are allowed')
-                if (!validator.isInt(state_id)) reject('Invalid State id. Integer expected')
-                if (!validator.isInt(lga_id)) reject('Invalid Lga id. Integer expected')
+                if (!validator.isInt(String(state_id))) reject('Invalid State id. Integer expected')
+                if (!validator.isInt(String(lga_id))) reject('Invalid Lga id. Integer expected')
                 await checkCorrectStateAndLgaId(lga_id, state_id)
                 if (!validator.isIn(sex, ['male', 'female'])) reject("Invalid Sex. Only 'male' and 'female' are allowed")
                 if (!validator.isDate(dateofbirth)) reject('Invalid Date of birth. Use format yyyy-mm-dd')
@@ -142,17 +142,13 @@ const validateSelections = (req) => {
             if (!product_id || !seed_type_id) {
                 reject("Product_id and seed_type_id must be provided")
             }
-
-            else if (!(product_id.trim() && seed_type_id.trim())) {
-                reject("Product_id and seed_type_id must be provided")
-            }
             else {
-                if (!validator.isInt(product_id)) reject('Invalid Product id. Integer expected')
-                if (!validator.isInt(seed_type_id)) reject('Invalid Seed type id. Integer expected')
+                if (!validator.isInt(String(product_id))) reject('Invalid Product id. Integer expected')
+                if (!validator.isInt(String(seed_type_id))) reject('Invalid Seed type id. Integer expected')
                 await checkCorrectProductAndSeedTypeId(operator_id, product_id, seed_type_id)
-
                 req.validatedData = { product_id: product_id, operator_id: operator_id, seed_type_id: seed_type_id }
             }
+            resolve(true)
 
         } catch (error) {
             reject(error)

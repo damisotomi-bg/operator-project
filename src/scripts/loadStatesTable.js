@@ -49,7 +49,9 @@ const loadStatesTable = async () => {
                       ('FCT')            
                         RETURNING *;`;
             const result = await conn.query(insertSql)
+            console.log('States Table loaded successfully');
         }
+        console.log('States Table Already loaded');
     } catch (error) {
         console.log(error);
     }

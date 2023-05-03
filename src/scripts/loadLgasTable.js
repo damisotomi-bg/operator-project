@@ -786,8 +786,9 @@ const loadLgasTable = async () => {
             ('Municipal Area Council',37)           
             RETURNING *;`;
             const result = await conn.query(insertSql)
+            console.log('Lgas Table loaded successfully');
         }
-
+        console.log('Lgas Table Already loaded');
     } catch (error) {
         console.log(error);
     }
