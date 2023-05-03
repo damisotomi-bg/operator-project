@@ -7,16 +7,19 @@
 ### Authentication
 
 User Signup - /auth/signup -POST METHOD
+
 User login -/auth/login -POST METHOD
 
 ### Operators
 
 Complete registration - /operators/me -POST METHOD <Token Expected. Gotten from login above>
+
 Select Product & seed type - /operators/selectProductSeedType -POST METHOD <Token Expected Gotten from login above>
 
 ### States and LGAs
 
 Get all states -/states/ -GET METHOD
+
 Get a states lgas -/states/{state_id}/lgas -GET METHOD
 
 ## How to run the app
