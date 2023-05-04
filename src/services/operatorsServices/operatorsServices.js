@@ -103,13 +103,15 @@ const validateOperatorsData = (req) => {
                 reject('Upload an image as picture')
             }
             else {
-                if (!validator.isNumeric(phonenumber)) reject('Invalid Phone number. Only Numbers are allowed')
+                if (!validator.isNumeric(phonenumber)) reject('Invalid Phone number. Expected only integers')
+                if (phonenumber.length !== parseInt(11)) reject('Invalid Phone number. Expected 11 digit Number')
                 if (!validator.isInt(String(state_id))) reject('Invalid State id. Integer expected')
                 if (!validator.isInt(String(lga_id))) reject('Invalid Lga id. Integer expected')
                 await checkCorrectStateAndLgaId(lga_id, state_id)
                 if (!validator.isIn(sex, ['male', 'female'])) reject("Invalid Sex. Only 'male' and 'female' are allowed")
                 if (!validator.isDate(dateofbirth)) reject('Invalid Date of birth. Use format yyyy-mm-dd')
-                if (!validator.isNumeric(nin)) reject('Invalid Nin. Only Numbers are allowed')
+                if (!validator.isNumeric(nin)) reject('Invalid Nin. Expected only integers')
+                if (nin.length !== parseInt(11)) reject('Invalid Nin. Expected 11 digit Number')
 
                 const picture = fs.readFileSync(req.file.path)
 

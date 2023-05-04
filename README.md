@@ -6,15 +6,15 @@
 
 ### Authentication
 
-User Signup - /auth/signup -POST METHOD
+User Signup - /auth/signup -POST METHOD {email:string, password:string, isoperator:Boolean}
 
-User login -/auth/login -POST METHOD
+User login -/auth/login -POST METHOD {email:string, password:string}
 
 ### Operators
 
-Complete registration - /operators/me -POST METHOD <Token Expected. Gotten from login above>
+Complete registration - /operators/me -POST METHOD- Available to only users who set isoperator to True at signup <Token Expected. Gotten from login above> {fistname,lastname,phonenumber,nationality,state_id,lga_id,sex,dateofbirth,nin, picture}. Use postman form data to receive input
 
-Select Product & seed type - /operators/selectProductSeedType -POST METHOD <Token Expected Gotten from login above>
+Select Product & seed type - /operators/selectProductSeedType -POST METHOD - Available to only verified operators not all <Token Expected Gotten from login above> {product_id:,"seed_type_id"}
 
 ### States and LGAs
 
